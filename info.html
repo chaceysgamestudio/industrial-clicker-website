@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html> 
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Industrial Clickerfication Info</title>
+<link rel="stylesheet" type="text/css" href="info_html.css?h=6702b065">
+
+<!-- Special Elite font -->
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+
+<style>
+  /* Fade transition overlay */
+  #pageTransition {
+    position: fixed;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    background-color:#111;
+    z-index:10000;
+    pointer-events:none;
+    opacity:1;
+    transition: opacity 0.7s ease;
+  }
+
+  /* Dust particles canvas */
+  #dustCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: screen;
+  }
+
+  body {
+    margin: 0;
+    background: linear-gradient(135deg, #1b1b1b, #2c2c2c);
+    font-family: 'Special Elite', monospace;
+    color: #eee;
+    overflow-x: hidden;
+  }
+
+  /* Fixed top menu */
+  #topMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    background: rgba(0,0,0,0.75);
+    padding: 12px 0;
+    z-index: 999;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  }
+
+  /* Squishy buttons */
+  .squishy-button {
+    display: inline-block;
+    cursor: pointer;
+    transition: transform 0.15s cubic-bezier(0.25,1.5,0.5,1), box-shadow 0.15s ease;
+    border-radius: 12px;
+    padding: 10px 22px;
+    background: #222;
+    color: #fff;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.4);
+    text-decoration: none;
+    font-weight: bold;
+    font-family: 'Special Elite', monospace;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Button sparkle animation */
+  .squishy-button::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 60%);
+    transform: rotate(45deg) translate(-100%, -100%);
+    transition: transform 0.6s ease, opacity 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .squishy-button:hover::after {
+    transform: rotate(45deg) translate(0, 0);
+    opacity: 0.5;
+  }
+
+  /* Header & logo */
+  #headerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    margin-top: 90px; /* space for fixed menu */
+    position: relative;
+    z-index: 3;
+  }
+
+  #headerContainer img {
+    width: 220px;
+    height: 220px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: drop-shadow(0 0 12px #fff);
+  }
+
+  #headerContainer img:hover {
+    transform: scale(1.05) rotate(-1deg);
+    filter: drop-shadow(0 0 24px #fffdc3);
+  }
+
+  /* Main content */
+  #mainContent {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 30px;
+    line-height: 1.6;
+    font-family: 'Special Elite', monospace;
+  }
+
+  /* Content blocks hover glow */
+  #mainContent h2, #mainContent h3, #mainContent p, #mainContent ul {
+    transition: transform 0.2s ease, text-shadow 0.2s ease;
+  }
+
+  #mainContent h2:hover, #mainContent h3:hover, #mainContent p:hover, #mainContent ul:hover {
+    transform: translateY(-3px);
+    text-shadow: 0 0 6px #fff;
+  }
+
+  ul {
+    list-style-type: square;
+    margin-left: 20px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Page Transition Overlay -->
+<div id="pageTransition"></div>
+
+<canvas id="dustCanvas"></canvas>
+
+<!-- Fixed Top Menu -->
+<div id="topMenu">
+  <a href="javascript:void(0);" class="squishy-button">☰</a>
+  <a href="index.html" class="squishy-button">home</a>
+  <a href="javascript:void(0);" class="squishy-button">information</a>
+  <a href="https://forms.gle/hy2qjpGeA62Z72R36" class="squishy-button">report</a>
+</div>
+
+<div id="headerContainer">
+  <img src="rc_images/industlogo.png" alt="Industrial Clickerfication Logo"/>
+
+  <div id="mainContent">
+    <h2>New Mechanics</h2>
+    <ul>
+      <li>Events</li>
+      <li>Maps</li>
+      <li>Power</li>
+      <li>Years</li>
+      <li>Modding Support</li>
+    </ul>
+
+    <h3>Unique Generators:</h3>
+    <p>Instead of standard upgrades, you buy unique generators. You can move them around, and their placement affects performance: far away = more money but slower output, closer = less money but faster. All generators draw power from one central power generator, which produces energy indicated by visible sparks.</p>
+
+    <h3>Events:</h3>
+    <p>Every 2 minutes (or so), a random event may occur. This could be a protest, a blizzard, or other unpredictable challenges that affect your factory.</p>
+
+    <h3>Maps:</h3>
+    <p>Unlock maps to get a bird's-eye view of your generators, their layout, and your entire operation.</p>
+
+    <h3>Power:</h3>
+    <p>Your single power generator fuels all other generators. You can tell it’s working because it emits sparks.</p>
+
+    <h3>Years:</h3>
+    <p>Time flows automatically—every minute, the year increases by one. Fonts change over time to match the era.</p>
+  </div>
+</div>
+
+<!-- Dust particles script -->
+<script>
+const canvas = document.getElementById("dustCanvas");
+const ctx = canvas.getContext("2d");
+let particles = [];
+const PARTICLE_COUNT = 180;
+
+function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+window.addEventListener("resize", resize);
+resize();
+
+function createParticle() {
+  const depth = Math.random();
+  return {
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    size: depth*2 + 0.5,
+    speedY: depth*0.5 + 0.05,
+    speedX: (Math.random()-0.5)*depth*0.3,
+    alpha: depth*0.4 + 0.1,
+    depth: depth
+  };
+}
+
+for (let i=0;i<PARTICLE_COUNT;i++) particles.push(createParticle());
+
+let wind=0;
+let mouse={x:canvas.width/2,y:canvas.height/2};
+window.addEventListener("mousemove",(e)=>{mouse.x=e.clientX;mouse.y=e.clientY;});
+
+function update() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  wind+=0.001;
+
+  for (let p of particles) {
+    p.x += Math.sin(wind + p.depth*10)*0.2;
+    p.y -= p.speedY;
+
+    const dx = p.x - mouse.x;
+    const dy = p.y - mouse.y;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    if(dist<100){ p.x += (dx/dist)*1.5; p.y += (dy/dist)*1.5; }
+
+    if(p.y < -10) { p.y = canvas.height+10; p.x=Math.random()*canvas.width; }
+    if(p.x < -10) p.x=canvas.width+10;
+    if(p.x>canvas.width+10) p.x=-10;
+
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    ctx.fillStyle=`rgba(200,200,200,${p.alpha})`;
+    ctx.shadowColor="rgba(180,180,180,0.4)";
+    ctx.shadowBlur=4;
+    ctx.fill();
+  }
+  ctx.shadowBlur=0;
+  requestAnimationFrame(update);
+}
+update();
+</script>
+
+<!-- Button squish script -->
+<script>
+const buttons = document.querySelectorAll(".squishy-button");
+buttons.forEach(btn => {
+  const defaultScale = 1;
+  const hoverScale = 1.08;
+  const clickScale = 0.85;
+
+  btn.style.transform = `scale(${defaultScale})`;
+
+  btn.addEventListener("mouseenter",()=>{ btn.style.transform=`scale(${hoverScale})`; });
+  btn.addEventListener("mouseleave",()=>{ btn.style.transform=`scale(${defaultScale})`; });
+  btn.addEventListener("mousedown",()=>{ btn.style.transform=`scale(${clickScale})`; });
+  btn.addEventListener("mouseup",()=>{ btn.style.transform=`scale(${hoverScale})`; });
+});
+</script>
+
+<!-- Page transition script -->
+<script>
+window.addEventListener("load",()=>{
+  const overlay = document.getElementById("pageTransition");
+  overlay.style.opacity = 0; // fade-in on load
+  setTimeout(()=>overlay.style.display="none",700);
+});
+
+// Intercept clicks for smooth exit
+document.querySelectorAll('a').forEach(a=>{
+  a.addEventListener('click',(e)=>{
+    const href = a.getAttribute('href');
+    if(!href || href.startsWith('javascript')) return;
+    e.preventDefault();
+    const overlay = document.getElementById("pageTransition");
+    overlay.style.display="block";
+    setTimeout(()=>{ overlay.style.opacity=1; },10);
+    setTimeout(()=>{ window.location = href; },700);
+  });
+});
+</script>
+
+</body>
+</html>
