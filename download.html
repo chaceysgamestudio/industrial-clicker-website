@@ -28,7 +28,7 @@
     padding: 12px 24px;
     background: #222;
     color: #fff;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.6);
     text-decoration: none;
     font-weight: bold;
     font-family: "Special Elite", sans-serif;
@@ -36,7 +36,8 @@
   }
 
   .squishy-button:hover {
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    box-shadow: 0 8px 25px rgba(255,255,255,0.1);
+    transform: scale(1.05);
   }
 
   /* Header layout */
@@ -45,16 +46,18 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    margin-top: 120px; /* leave space for fixed top menu */
+    margin-top: 120px;
     z-index: 3;
     position: relative;
   }
 
+  /* Download buttons container */
   #downloadButtons {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: 50px;
   }
 
   /* Fixed top menu */
@@ -80,9 +83,28 @@
   body {
     opacity: 0;
     transition: opacity 0.5s ease;
+    background: radial-gradient(circle at center, #1a1a1a 0%, #0b0b0b 70%);
   }
   body.loaded {
     opacity: 1;
+  }
+
+  /* Logo hover effect */
+  #mainLogo {
+    transition: transform 0.3s cubic-bezier(0.2,1.6,0.4,1), filter 0.3s ease;
+  }
+
+  #mainLogo:hover {
+    transform: scale(1.12) rotate(-1deg);
+    filter: drop-shadow(0 0 25px rgba(255,255,255,0.25));
+  }
+
+  /* OS icon inside buttons */
+  .squishy-button img {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 8px;
   }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
@@ -91,7 +113,7 @@
 
 <canvas id="dustCanvas"></canvas>
 
-<!-- Fixed Top Menu -->
+<!-- Top Menu -->
 <div id="topMenu">
   <a href="index.html" class="squishy-button">☰</a>
   <a href="index.html" class="squishy-button">home</a>
@@ -102,23 +124,25 @@
 
 <div id="headerContainer">
   <!-- Logo -->
-  <img src="rc_images/industlogo.png" alt="Industrial Clickerfication" id="mainLogo" style="width:200px;height:200px;transition: transform 0.2s ease, filter 0.2s ease;" />
+  <img src="rc_images/industlogo.png" alt="Industrial Clickerfication" id="mainLogo" style="width:200px;height:200px;" />
 
- <!-- Download buttons with OS icons -->
-<div id="downloadButtons">
-  <a href="downloads/app_windows.exe" download class="squishy-button">
-    <img src="assets/icons/windows.png" alt="Windows" style="width:20px; height:20px; vertical-align:middle; margin-right:8px;">
-    Download for Windows
-  </a>
-  <a href="downloads/app_mac.dmg" download class="squishy-button">
-    <img src="assets/icons/mac.png" alt="macOS" style="width:20px; height:20px; vertical-align:middle; margin-right:8px;">
-    Download for macOS
-  </a>
-  <a href="downloads/app_linux.AppImage" download class="squishy-button">
-    <img src="assets/icons/linux.png" alt="Linux" style="width:20px; height:20px; vertical-align:middle; margin-right:8px;">
-    Download for Linux
-  </a>
+  <!-- Download buttons -->
+  <div id="downloadButtons">
+    <a href="downloads/app_windows.exe" download class="squishy-button">
+      <img src="assets/icons/windows.png" alt="Windows">
+      Download for Windows
+    </a>
+    <a href="downloads/app_mac.dmg" download class="squishy-button">
+      <img src="assets/icons/mac.png" alt="macOS">
+      Download for macOS
+    </a>
+    <a href="downloads/app_linux.AppImage" download class="squishy-button">
+      <img src="assets/icons/linux.png" alt="Linux">
+      Download for Linux
+    </a>
+  </div>
 </div>
+
 <!-- Dust particles -->
 <script>
 const canvas = document.getElementById("dustCanvas");
@@ -183,7 +207,7 @@ function update() {
 update();
 </script>
 
-<!-- Satisfying button animations -->
+<!-- Button animations -->
 <script>
 const buttons = document.querySelectorAll(".squishy-button");
 buttons.forEach(btn => {
@@ -195,34 +219,26 @@ buttons.forEach(btn => {
 
   btn.addEventListener("mouseenter", () => {
     btn.style.transform = `scale(${hoverScale})`;
-    btn.style.boxShadow = "0 8px 20px rgba(0,0,0,0.4)";
   });
 
   btn.addEventListener("mouseleave", () => {
     btn.style.transform = `scale(${defaultScale})`;
-    btn.style.boxShadow = "0 5px 10px rgba(0,0,0,0.3)";
   });
 
   btn.addEventListener("mousedown", () => {
     btn.style.transform = `scale(${clickScale})`;
-    btn.style.boxShadow = "0 2px 6px rgba(0,0,0,0.2)";
   });
 
   btn.addEventListener("mouseup", () => {
     btn.style.transform = `scale(${hoverScale})`;
-    btn.style.boxShadow = "0 8px 20px rgba(0,0,0,0.4)";
   });
 });
 </script>
 
 <!-- Page load transition -->
 <script>
-window.addEventListener("load", () => {
-  document.body.classList.add("loaded");
-});
-window.addEventListener("beforeunload", () => {
-  document.body.style.opacity = "0";
-});
+window.addEventListener("load", () => { document.body.classList.add("loaded"); });
+window.addEventListener("beforeunload", () => { document.body.style.opacity = "0"; });
 </script>
 
 </body>
